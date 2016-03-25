@@ -13,6 +13,8 @@ $(function() {
 
     MenuView.prototype.el = $("#menu");
 
+    MenuView.prototype.timer = null;
+
     MenuView.prototype.initialize = function() {
       console.log("Menu View Initialized");
       _.bindAll(this, "render");
@@ -37,9 +39,24 @@ $(function() {
       return $(".menu-list").hide();
     };
 
+    MenuView.prototype.startTimer = function(callback) {
+      clearTimeout(this.timer);
+      return this.timer = setTimeout(callback, 500);
+    };
+
+    MenuView.prototype.mouseEnter = function() {
+      console.log("enter");
+      return this.startTimer(this.show_list);
+    };
+
+    MenuView.prototype.mouseLeave = function() {
+      console.log("leave");
+      return this.startTimer(this.hide_list);
+    };
+
     MenuView.prototype.events = {
-      'mouseenter .menu-item': 'show_list',
-      'mouseleave .menu-item': 'hide_list'
+      'mouseenter .menu-item': 'mouseEnter',
+      'mouseleave .menu-item': 'mouseLeave'
     };
 
     return MenuView;
