@@ -1,4 +1,28 @@
 .menu-panel {
-    height: 30px;
+    height: 50px;
     background-color: aqua;
+    display: block;
+}
+
+.menu-item {
+    display: inline-block;
+    background-color: blueviolet;
+    height: inherit;
+    width: 100px;
+    float: right;
+    margin-right: 30%;
+    position: relative;
+}
+
+.menu-item:hover {
+    background-color: cadetblue;
+}
+
+.menu-list {
+    display: none;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50px;
+    background-color: cadetblue;
 }
