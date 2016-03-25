@@ -8,7 +8,7 @@ $ ->
         @render()
 
       render: ->
-        $.get "/bb/templates/menu.html", (data) =>
+        $.get "templates/menu.html", (data) =>
           template = _.template(data)
           $(@el).html template()
         , "html"

@@ -20,7 +20,7 @@ $(function() {
     };
 
     MenuView.prototype.render = function() {
-      return $.get("/bb/templates/menu.html", (function(_this) {
+      return $.get("templates/menu.html", (function(_this) {
         return function(data) {
           var template;
           template = _.template(data);
