@@ -2,40 +2,41 @@ $ ->
   class MenuView extends Backbone.View
       el: $ "#menu"
       timer: null
+      currentItem: null
 
       initialize: ->
-        console.log "Menu View Initialized"
-        _.bindAll @, "render"
         @render()
 
-      render: ->
+      render: =>
         $.get "templates/menu.html", (data) =>
           template = _.template(data)
           $(@el).html template()
         , "html"
 
-      show_list: ->
-        $(".menu-list").show()
+      show_list: (item) =>
+        $(item).find(".menu-list").show()
+        @hide_list @currentItem if @currentItem?
+        @currentItem = item
 
-      hide_list: ->
-        $(".menu-list").hide()
+      hide_list: (item) ->
+        $(item).find(".menu-list").hide()
+        @currentItem = null
 
-      startTimer: (callback) ->
-        clearTimeout @timer
-        @timer = setTimeout callback, 500
+      startTimer: (callback, target) ->
+        clearTimeout @timer if @timer?
+        @timer = setTimeout ->
+          callback(target)
+        , 500
 
-      mouseEnter: ->
-        console.log "enter"
+      mouseEnter: (e) ->
+        target = e.target
 
-        @startTimer @show_list
+        @startTimer @show_list, target
 
-      mouseLeave: ->
-        console.log "leave"
+      mouseLeave: (e) ->
+        target = e.target
 
-        @startTimer @hide_list
-
-
-
+        @startTimer @hide_list, target
 
       events:
         'mouseenter .menu-item': 'mouseEnter'

@@ -4,18 +4,23 @@
     display: block;
 }
 
+.menu-buttons {
+    display: table;
+    height: inherit;
+    float: right;
+    margin-right: 50%;
+}
 .menu-item {
     display: inline-block;
-    background-color: blueviolet;
+    background-color: #2eb5ff;
     height: inherit;
     width: 100px;
-    float: right;
-    margin-right: 30%;
     position: relative;
+    border: solid 1px;
 }
 
 .menu-item:hover {
-    background-color: cadetblue;
+    background-color: #5640a0;
 }
 
 .menu-list {
@@ -24,5 +29,5 @@
     height: 200px;
     position: absolute;
     top: 50px;
-    background-color: cadetblue;
+    background-color: #5640a0;
 }
