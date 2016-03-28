@@ -9,6 +9,9 @@ $(function() {
     extend(MenuView, superClass);
 
     function MenuView() {
+      this.mouseLeave = bind(this.mouseLeave, this);
+      this.mouseEnter = bind(this.mouseEnter, this);
+      this.show_list = bind(this.show_list, this);
       this.render = bind(this.render, this);
       return MenuView.__super__.constructor.apply(this, arguments);
     }
@@ -38,16 +41,15 @@ $(function() {
     };
 
     MenuView.prototype.show_list = function(item) {
-      $(item).find(".menu-list").show();
-      if (this.currentItem != null) {
-        this.hide_list(this.currentItem);
-      }
-      return this.currentItem = item;
+      this.showTimer = null;
+      console.log("show list, showtimer = " + this.showTimer);
+      return $(item).find(".menu-list").show();
     };
 
     MenuView.prototype.hide_list = function(item) {
-      $(item).find(".menu-list").hide();
-      return this.currentItem = null;
+      this.hideTimer = null;
+      console.log("hidelist");
+      return $(item).find(".menu-list").hide();
     };
 
     MenuView.prototype.startTimer = function(callback, target, delay) {
@@ -58,16 +60,28 @@ $(function() {
 
     MenuView.prototype.mouseEnter = function(e) {
       var target;
+      console.log("enter. showtimer = " + this.showTimer + ", hideTimer = " + this.hideTimer);
       target = e.target;
-      this.showTimer = this.startTimer(this.show_list, target, this.showDelay);
-      return console.log("showTimer = " + this.showTimer);
+      if (this.hideTimer != null) {
+        clearTimeout(this.hideTimer);
+        this.hideTimer = null;
+        return;
+      }
+      return this.showTimer = this.startTimer(this.show_list, target, this.showDelay);
     };
 
     MenuView.prototype.mouseLeave = function(e) {
       var target;
+      console.log("leave. showtimer = " + this.showTimer + ", hideTimer = " + this.hideTimer);
       target = e.target;
-      this.hideTimer = this.startTimer(this.hide_list, target, this.hideDelay);
-      return console.log("hideTimer = " + this.hideTimer);
+      if (this.showTimer != null) {
+        clearTimeout(this.showTimer);
+        return this.showTimer = null;
+      } else {
+        console.log("leave else");
+        this.hideTimer = this.startTimer(this.hide_list, target, this.hideDelay);
+        return console.log("leave else" + this.hideTimer);
+      }
     };
 
     MenuView.prototype.events = {
