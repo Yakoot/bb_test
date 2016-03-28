@@ -9,14 +9,17 @@ $(function() {
     extend(MenuView, superClass);
 
     function MenuView() {
-      this.show_list = bind(this.show_list, this);
       this.render = bind(this.render, this);
       return MenuView.__super__.constructor.apply(this, arguments);
     }
 
-    MenuView.prototype.el = $("#menu");
+    MenuView.prototype.showTimer = null;
 
-    MenuView.prototype.timer = null;
+    MenuView.prototype.hideTimer = null;
+
+    MenuView.prototype.showDelay = 300;
+
+    MenuView.prototype.hideDelay = 300;
 
     MenuView.prototype.currentItem = null;
 
@@ -47,25 +50,24 @@ $(function() {
       return this.currentItem = null;
     };
 
-    MenuView.prototype.startTimer = function(callback, target) {
-      if (this.timer != null) {
-        clearTimeout(this.timer);
-      }
-      return this.timer = setTimeout(function() {
+    MenuView.prototype.startTimer = function(callback, target, delay) {
+      return setTimeout(function() {
         return callback(target);
-      }, 500);
+      }, delay);
     };
 
     MenuView.prototype.mouseEnter = function(e) {
       var target;
       target = e.target;
-      return this.startTimer(this.show_list, target);
+      this.showTimer = this.startTimer(this.show_list, target, this.showDelay);
+      return console.log("showTimer = " + this.showTimer);
     };
 
     MenuView.prototype.mouseLeave = function(e) {
       var target;
       target = e.target;
-      return this.startTimer(this.hide_list, target);
+      this.hideTimer = this.startTimer(this.hide_list, target, this.hideDelay);
+      return console.log("hideTimer = " + this.hideTimer);
     };
 
     MenuView.prototype.events = {
@@ -76,5 +78,7 @@ $(function() {
     return MenuView;
 
   })(Backbone.View);
-  return menuView = new MenuView;
+  return menuView = new MenuView({
+    el: "#menu"
+  });
 });
