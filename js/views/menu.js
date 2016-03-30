@@ -25,24 +25,9 @@ PanelView = (function(superClass) {
 
   PanelView.prototype.currentItem = null;
 
-  PanelView.prototype.initialize = function(data) {
-    console.log(data);
-    this.collection = new Panel(data);
-    console.log(this.collection);
+  PanelView.prototype.initialize = function() {
+    this.collection = new Panel;
     return this.render();
-  };
-
-  PanelView.prototype.render = function() {
-    return this.collection.each(function(item) {
-      console.log(item);
-      return this.renderItem(item);
-    }, this);
-  };
-
-  PanelView.prototype.renderItem = function(item) {
-    var itemView;
-    itemView = new ItemView(item);
-    return $(this.el).append(itemView.render().el);
   };
 
   PanelView.prototype.show_list = function(item) {
@@ -93,6 +78,21 @@ PanelView = (function(superClass) {
     'mouseleave .menu-item': 'mouseLeave'
   };
 
+  PanelView.prototype.render = function() {
+    this.collection.fetch();
+    return this.collection.each(function(item) {
+      return this.renderItem(item);
+    }, this);
+  };
+
+  PanelView.prototype.renderItem = function(item) {
+    var itemView;
+    itemView = new ItemView({
+      model: item
+    });
+    return $(this.el).append(itemView.render().el);
+  };
+
   return PanelView;
 
 })(Backbone.View);
@@ -108,10 +108,10 @@ ItemView = (function(superClass) {
 
   ItemView.prototype.className = 'menu-item';
 
-  ItemView.prototype.template = _.template('<div class="menu-list"></div>');
+  ItemView.prototype.template = _.template('<span><%= name %></span><div class="menu-list"></div>');
 
   ItemView.prototype.render = function() {
-    $(this.el).html(this.template());
+    $(this.el).html(this.template(this.model.toJSON()));
     return this;
   };
 

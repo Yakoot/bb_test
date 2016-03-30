@@ -6,21 +6,23 @@
 
 .menu-buttons {
     display: table;
-    height: inherit;
+    height: 50px;
     float: right;
     margin-right: 10%;
 }
 .menu-item {
     display: inline-block;
     background-color: #2eb5ff;
-    height: inherit;
+    height: 50px;
     width: 100px;
     position: relative;
-    border: solid 1px;
+    border: solid 1px black;
+    margin-right: 5px;
 }
 
 .menu-item:hover {
     background-color: #5640a0;
+    color: white;
 }
 
 .menu-list {

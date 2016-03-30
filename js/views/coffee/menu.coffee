@@ -1,77 +1,75 @@
 class PanelView extends Backbone.View
 
-    el: "#menu"
-    showTimer: null
-    hideTimer: null
+  el: "#menu"
+  showTimer: null
+  hideTimer: null
 
-    showDelay: 500
-    hideDelay: 500
+  showDelay: 500
+  hideDelay: 500
 
-    currentItem: null
+  currentItem: null
 
-    initialize: (data) ->
-      console.log data
-      @collection = new Panel data
-      console.log @collection
-      @render()
+  initialize: () ->
+    @collection = new Panel
+    @render()
 
-    render: ->
-      @collection.each (item) ->
-        console.log item
-        @renderItem(item)
-      , @
+  show_list: (item) =>
+    @showTimer = null
 
+    if @currentItem?
+      @hide_list @currentItem
+    $(item).find(".menu-list").show()
+    @currentItem = item
 
-    renderItem: (item) ->
-      itemView = new ItemView item
-      $(@el).append itemView.render().el
+  hide_list: (item) =>
+    @hideTimer = null
+    $(item).find(".menu-list").hide()
+    @currentItem = null
 
-    show_list: (item) =>
-      @showTimer = null
+  startTimer: (callback, target, delay) ->
+    setTimeout ->
+      callback(target)
+    , delay
 
-      if @currentItem?
-        @hide_list @currentItem
-      $(item).find(".menu-list").show()
-      @currentItem = item
-
-    hide_list: (item) =>
+  mouseEnter: (e) ->
+    target = e.currentTarget
+    if @hideTimer? and @currentItem == target
+      clearTimeout @hideTimer
       @hideTimer = null
-      $(item).find(".menu-list").hide()
-      @currentItem = null
+    else
+      @showTimer = @startTimer @show_list, target, @showDelay
 
+  mouseLeave: (e) ->
+    target = e.currentTarget
+    if @showTimer?
+      clearTimeout @showTimer
+      @showTimer = null
+    else
+      @hideTimer = @startTimer @hide_list, target, @hideDelay
 
-    startTimer: (callback, target, delay) ->
-      setTimeout ->
-        callback(target)
-      , delay
+  events:
+    'mouseenter .menu-item': 'mouseEnter'
+    'mouseleave .menu-item': 'mouseLeave'
 
-    mouseEnter: (e) ->
-      target = e.currentTarget
-      if @hideTimer? and @currentItem == target
-        clearTimeout @hideTimer
-        @hideTimer = null
-      else
-        @showTimer = @startTimer @show_list, target, @showDelay
+  render: ->
+    @collection.fetch()
+    @collection.each (item) ->
+      @renderItem(item)
+    , @
 
-    mouseLeave: (e) ->
-      target = e.currentTarget
-      if @showTimer?
-        clearTimeout @showTimer
-        @showTimer = null
-      else
-        @hideTimer = @startTimer @hide_list, target, @hideDelay
-
-    events:
-      'mouseenter .menu-item': 'mouseEnter'
-      'mouseleave .menu-item': 'mouseLeave'
+  renderItem: (item) ->
+    itemView = new ItemView
+      model: item
+    $(@el).append itemView.render().el
 
 
 class ItemView extends Backbone.View
   tagName: 'div'
   className: 'menu-item'
-  template: _.template '<div class="menu-list"></div>'
+  template: _.template '<span><%= name %></span><div class="menu-list"></div>'
+
   render: ->
-    $(@el).html @template()
+    $(@el).html @template @model.toJSON()
     @
 
 

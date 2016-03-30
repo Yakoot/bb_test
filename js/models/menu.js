@@ -10,8 +10,6 @@ Menu = (function(superClass) {
     return Menu.__super__.constructor.apply(this, arguments);
   }
 
-  Menu.prototype.url = "backend.php";
-
   return Menu;
 
 })(Backbone.Model);
@@ -24,6 +22,8 @@ Panel = (function(superClass) {
   }
 
   Panel.prototype.model = Menu;
+
+  Panel.prototype.url = "backend.php";
 
   return Panel;
 

@@ -1,2 +1,2 @@
 <?php
-echo '{"message":"Hello Backbonejs"}';
+    echo '{"message":"Hello Backbonejs"}';
