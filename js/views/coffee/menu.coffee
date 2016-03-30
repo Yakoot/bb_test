@@ -1,6 +1,5 @@
 class PanelView extends Backbone.View
 
-  el: "#menu"
   showTimer: null
   hideTimer: null
 

@@ -13,8 +13,6 @@ PanelView = (function(superClass) {
     return PanelView.__super__.constructor.apply(this, arguments);
   }
 
-  PanelView.prototype.el = "#menu";
-
   PanelView.prototype.showTimer = null;
 
   PanelView.prototype.hideTimer = null;
