@@ -11,30 +11,36 @@
     margin-right: 10%;
 }
 .menu-item {
-    display: inline-block;
-    background-color: #2eb5ff;
+    display: table-cell;
+    background-color: #79dfff;
     height: 50px;
     width: 100px;
     position: relative;
     border: solid 1px black;
     margin-right: 5px;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .menu-item:hover {
-    background-color: #5640a0;
+    background-color: #2d92ff;
     color: white;
 }
 
 .menu-list {
     display: none;
     position: absolute;
-    top: 50px;
+    top: 51px;
     left: -1px;
-    background-color: #5640a0;
+    background-color: #b1ffe4;
     min-width: 102px;
 }
 
 .menu-list-item {
+    color: black;
     height: 20px;
     padding: 10px 10px;
+}
+.menu-list-item:hover {
+    background-color: #b4d4e0;
 }
