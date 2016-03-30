@@ -52,10 +52,14 @@ class PanelView extends Backbone.View
     'mouseleave .menu-item': 'mouseLeave'
 
   render: ->
-    @collection.fetch()
-    @collection.each (item) ->
-      @renderItem(item)
-    , @
+    @collection.fetch
+      data:
+        type: 'menu'
+      success: (data) =>
+        data.each (item) =>
+          @renderItem(item)
+        , @
+
 
   renderItem: (item) ->
     itemView = new ItemView
@@ -66,7 +70,13 @@ class PanelView extends Backbone.View
 class ItemView extends Backbone.View
   tagName: 'div'
   className: 'menu-item'
-  template: _.template '<span><%= name %></span><div class="menu-list"></div>'
+  template: _.template '<span><%= name %></span><div class="menu-list">' +
+    '<% if (typeof(values) !== "undefined") { %>' +
+    '<% _.each(values, function(value) { %>' +
+    '<div class="menu-list-item"><%= value %></div>' +
+    '<% }); %>' +
+    '<% } %></div>'
+
 
   render: ->
     $(@el).html @template @model.toJSON()

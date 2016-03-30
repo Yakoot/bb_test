@@ -27,9 +27,8 @@
 
 .menu-list {
     display: none;
-    width: 200px;
-    height: 200px;
     position: absolute;
     top: 50px;
+    left: -1px;
     background-color: #5640a0;
 }

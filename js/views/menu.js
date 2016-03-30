@@ -79,10 +79,18 @@ PanelView = (function(superClass) {
   };
 
   PanelView.prototype.render = function() {
-    this.collection.fetch();
-    return this.collection.each(function(item) {
-      return this.renderItem(item);
-    }, this);
+    return this.collection.fetch({
+      data: {
+        type: 'menu'
+      },
+      success: (function(_this) {
+        return function(data) {
+          return data.each(function(item) {
+            return _this.renderItem(item);
+          }, _this);
+        };
+      })(this)
+    });
   };
 
   PanelView.prototype.renderItem = function(item) {
@@ -108,7 +116,7 @@ ItemView = (function(superClass) {
 
   ItemView.prototype.className = 'menu-item';
 
-  ItemView.prototype.template = _.template('<span><%= name %></span><div class="menu-list"></div>');
+  ItemView.prototype.template = _.template('<span><%= name %></span><div class="menu-list">' + '<% if (typeof(values) !== "undefined") { %>' + '<% _.each(values, function(value) { %>' + '<div class="menu-list-item"><%= value %></div>' + '<% }); %>' + '<% } %></div>');
 
   ItemView.prototype.render = function() {
     $(this.el).html(this.template(this.model.toJSON()));
