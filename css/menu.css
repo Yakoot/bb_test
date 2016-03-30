@@ -31,4 +31,10 @@
     top: 50px;
     left: -1px;
     background-color: #5640a0;
+    min-width: 102px;
+}
+
+.menu-list-item {
+    height: 20px;
+    padding: 10px 10px;
 }
