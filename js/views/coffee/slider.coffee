@@ -21,8 +21,9 @@ class SliderView extends Backbone.View
 
   moveLeft: ->
     if not @container.is(':animated')
-      clearTimeout @timer
-      @timer = null
+      if @timer?
+        clearTimeout @timer
+        @timer = null
       @container
         .css 'left': -@slideWidth
         .find(".slider-item:last")
@@ -33,8 +34,9 @@ class SliderView extends Backbone.View
 
   moveRight: =>
     if not @container.is(':animated')
-      clearTimeout @timer
-      @timer = null
+      if @timer?
+        clearTimeout @timer
+        @timer = null
       @container.animate {left: -@slideWidth}, 1000, () =>
         @container.find(".slider-item:first")
           .appendTo(@container)

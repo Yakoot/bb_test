@@ -26,8 +26,10 @@ SliderView = (function(superClass) {
 
   SliderView.prototype.moveLeft = function() {
     if (!this.container.is(':animated')) {
-      clearTimeout(this.timer);
-      this.timer = null;
+      if (this.timer != null) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
       this.container.css({
         'left': -this.slideWidth
       }).find(".slider-item:last").prependTo(this.container).parent().animate({
@@ -39,8 +41,10 @@ SliderView = (function(superClass) {
 
   SliderView.prototype.moveRight = function() {
     if (!this.container.is(':animated')) {
-      clearTimeout(this.timer);
-      this.timer = null;
+      if (this.timer != null) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
       this.container.animate({
         left: -this.slideWidth
       }, 1000, (function(_this) {
