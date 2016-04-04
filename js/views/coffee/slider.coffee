@@ -1,6 +1,6 @@
 class SliderView extends Backbone.View
 
-  @container: $(".slider-container")
+  @timer: null
 
   template: _.template """
     <div class="slider-wrapper">
@@ -17,21 +17,34 @@ class SliderView extends Backbone.View
     @render()
     @container = $(".slider-container")
     @slideWidth = @container.parent().outerWidth() / 2
+    @go()
 
   moveLeft: ->
-    @container
-      .css 'left': -@slideWidth
-      .find(".slider-item:last")
-      .prependTo(@container)
-      .parent()
-      .animate {'left': 0}, 500
-
-  moveRight: ->
-    @container.animate {left: -@slideWidth}, 500, () =>
-      @container.find(".slider-item:first")
-        .appendTo(@container)
+    if not @container.is(':animated')
+      clearTimeout @timer
+      @timer = null
+      @container
+        .css 'left': -@slideWidth
+        .find(".slider-item:last")
+        .prependTo(@container)
         .parent()
-        .css 'left': 0
+        .animate {'left': 0}, 1000
+      @go()
+
+  moveRight: =>
+    if not @container.is(':animated')
+      clearTimeout @timer
+      @timer = null
+      @container.animate {left: -@slideWidth}, 1000, () =>
+        @container.find(".slider-item:first")
+          .appendTo(@container)
+          .parent()
+          .css 'left': 0
+      @go()
+
+  go: ->
+    @timer = setInterval @moveRight, 5000
+
 
   render: ->
     $(@el).html @template

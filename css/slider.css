@@ -28,11 +28,11 @@
 }
 
 .navigate {
-    background: rgba(89, 220, 141, 0.45);
+    background: #59DC8D;
 }
 
 .navigate:active {
-    background: rgb(164, 49, 220);
+    background: #51dc52;
 }
 
 .slider-container {
