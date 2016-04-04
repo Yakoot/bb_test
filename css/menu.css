@@ -10,7 +10,7 @@
     margin-right: 10%;
 }
 .menu-item {
-    display: inline-block;
+    display: table-cell;
     background-color: #7cb8ff;
     height: 50px;
     width: 100px;
