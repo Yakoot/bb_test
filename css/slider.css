@@ -1,9 +1,11 @@
 .slider-wrapper {
     background-color: #CFEFE4;
-    width: 100%;
+    width: 1080px;
     height: 200px;
+    margin: auto;
     margin-top: 200px;
     display: table;
+
 }
 
 .slider {
@@ -11,10 +13,7 @@
     height: 100%;
     vertical-align: middle;
     text-align: center;
-}
-
-.slider.left {
-    width: auto;
+    margin: auto;
 }
 
 .slider.middle {
@@ -23,12 +22,9 @@
     overflow: hidden;
 }
 
-.slider.right {
-    width: auto;
-}
-
 .navigate {
     background: #59DC8D;
+    width: 40px;
 }
 
 .navigate:active {
