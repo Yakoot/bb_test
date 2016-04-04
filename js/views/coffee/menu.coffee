@@ -3,8 +3,8 @@ class PanelView extends Backbone.View
   showTimer: null
   hideTimer: null
 
-  showDelay: 500
-  hideDelay: 500
+  showDelay: 700
+  hideDelay: 700
 
   currentItem: null
 
@@ -16,6 +16,7 @@ class PanelView extends Backbone.View
     @showTimer = null
 
     if @currentItem?
+
       @hide_list @currentItem
     $(item).find(".menu-list").show()
     @currentItem = item
@@ -80,6 +81,3 @@ class ItemView extends Backbone.View
   render: ->
     $(@el).html @template @model.toJSON()
     @
-
-
-

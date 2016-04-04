@@ -5,13 +5,12 @@
 }
 
 .menu-buttons {
-    display: table;
     height: 50px;
     float: right;
     margin-right: 10%;
 }
 .menu-item {
-    display: table-cell;
+    display: inline-block;
     background-color: #7cb8ff;
     height: 50px;
     width: 100px;

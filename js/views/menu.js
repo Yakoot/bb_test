@@ -17,9 +17,9 @@ PanelView = (function(superClass) {
 
   PanelView.prototype.hideTimer = null;
 
-  PanelView.prototype.showDelay = 500;
+  PanelView.prototype.showDelay = 700;
 
-  PanelView.prototype.hideDelay = 500;
+  PanelView.prototype.hideDelay = 700;
 
   PanelView.prototype.currentItem = null;
 
