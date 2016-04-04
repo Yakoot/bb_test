@@ -26,10 +26,6 @@ $slider[] = Array(
 $slider[] = Array(
     'img' => "cat4.png"
 );
-$slider[] = Array(
-    'img' => "cat5.png"
-);
-
 if ($_GET['type'] == 'menu') {
     echo json_encode($menu);
 }
