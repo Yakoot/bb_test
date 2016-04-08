@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(www\.)?toshaborodach\.ru$ [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^(.*)$ https://toshaborodach.ru/$1 [R=301,L]
+
+
